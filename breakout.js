@@ -50,13 +50,19 @@ function draw() {
 		paddleX -= 7;
 	}
 	
-	//Bounce the ball off
-	if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+	
+	//Bounce the ball off three walls - if it drops off the bottom - Game over!
+	if(x+dx > canvas.width-ballRadius || x + dx < ballRadius) {
 		dx = -dx;
 	}
-	if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
-		dy = -dy;
+	if(y+dy < ballRadius) {
+		dy = -dy
 	}
+	else if(y+dy > canvas.height-ballRadius) {
+		alert("GAME OVER");
+		document.location.reload();
+	}
+	
 }	
 
 document.addEventListener("keydown", keyDownHandler, false);
