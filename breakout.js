@@ -32,9 +32,10 @@ for (c=0; c < brickColumnCount; c++) {
 }
 
 //This function draws the bricks
-function drrawBricks() {
+function drawBricks() {
 	for(c=0; c < brickColumnCount; c++) {
 		for(r=0; r < brickRowCount; r++) {
+			if(bricks[c][r].status == 1) {
 			var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
 			var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
 			bricks[c][r].x = brickX;
@@ -46,6 +47,7 @@ function drrawBricks() {
 			ctx.closePath();
 		}
 	}
+}
 }
 
 			
@@ -74,7 +76,10 @@ function draw() {
 	//Draw the paddle
 	drawPaddle();
 	//Draw the bricks
-	drrawBricks();
+	drawBricks();
+	//Collision Detection
+	collisionDetection();
+	
 
 
 	
@@ -129,6 +134,21 @@ function keyUpHandler(e) {
 	}
 }
 
+
+function collisionDetection() {
+for(c=0; c < brickColumnCount; c++) {
+for(r=0; r < brickRowCount; r++) {
+var b = bricks[c][r];
+if(b.status == 1) {
+if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+dy = -dy;
+b.status = 0;
+}
+}
+}
+}
+}
+	
 setInterval(draw,10);
 
 
