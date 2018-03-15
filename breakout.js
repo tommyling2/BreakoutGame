@@ -37,6 +37,9 @@ for (c=0; c < brickColumnCount; c++) {
 	}
 }
 
+//Game lives
+var lives = 3;
+
 //This function draws the bricks
 function drawBricks() {
 	for(c=0; c < brickColumnCount; c++) {
@@ -116,9 +119,19 @@ function draw() {
 			dy = -dy;
 		}
 		else {
-			GAMEOVER_SOUND.play();
-			alert("GAME OVER");
-		document.location.reload();
+			lives--;
+			if(!lives) {
+				GAMEOVER_SOUND.play();
+				alert("GAME OVER");
+				document.location.reload();
+			}
+			else {
+				x = canvas.width/2;
+				y = canvas.height-30;
+				dx = 2;
+				dy = -2;
+				paddleX = (canvas.width-paddleWidth)/2;
+			}
 	}
 	
 }	
@@ -179,6 +192,13 @@ function mouseMoveHandler(e) {
 	if(relativeX > 0 && relativeX < canvas.width) {
 		paddleX = relativeX - paddleWidth/2;
 	}
+}
+
+function drawLives() {
+	ctx.font = "16px Arial" ;
+	ctx.fillStyle = "blue";
+	ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+	document.getElementById("gamelives").innerHTML = "Lives: " + lives;
 }
 	
 setInterval(draw,10);
