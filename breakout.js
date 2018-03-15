@@ -90,6 +90,8 @@ function draw() {
 	collisionDetection();
 	//Score
 	drawScore();
+	//Game lives
+	drawLives();
 	
 
 
