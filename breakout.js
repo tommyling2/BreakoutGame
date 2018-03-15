@@ -21,6 +21,7 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
+var score = 0;
 
 //Hold the bricks in a two-dimensional array = think of it as rows and columns 
 var bricks = [];
@@ -79,6 +80,8 @@ function draw() {
 	drawBricks();
 	//Collision Detection
 	collisionDetection();
+	//Score
+	drawScore();
 	
 
 
@@ -97,6 +100,7 @@ function draw() {
 	//Bounce the ball off three walls - if it drops off the bottom - Game over!
 	if(x+dx > canvas.width-ballRadius || x + dx < ballRadius) {
 		dx = -dx;
+		
 	}
 	if(y+dy < ballRadius) {
 		dy = -dy
@@ -143,10 +147,18 @@ if(b.status == 1) {
 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
 dy = -dy;
 b.status = 0;
+score++;
 }
 }
 }
 }
+}
+
+function drawScore() {
+	ctx.font = "16px Arial";
+	ctx.fillStyle = "#0095DD";
+	ctx.fillText("Score: "+score, 8, 20);
+	document.getElementById("gamescore").innerHTML = "Score: " + score;
 }
 	
 setInterval(draw,10);
